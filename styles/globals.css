@@ -41,6 +41,11 @@ html, body {
   flex-direction: column;
 }
 
+#__next {
+  height: 90%;
+  width: 90%;
+}
+
 .button {
   color: var(--bg-secondary);
   background-color: var(--fg-secondary);
@@ -63,4 +68,9 @@ h1 {
 
 p {
   margin: 4px;
+}
+
+main {
+  width: 100%;
+  height: auto;
 }
