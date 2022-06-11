@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 const isDev = process.env.NODE_ENV === 'development';
-const baseURL = isDev ? 'http://localhost:3000' : 'https://cloud.piemadd.com';
+const baseURL = isDev ? 'http://localhost:3000' : 'https://artistbubble.vercel.app/callback';
 
 export default function Home() {
   return (
