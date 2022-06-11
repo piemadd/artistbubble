@@ -8,9 +8,59 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
+}
+:root {
+  --bg-primary: #333;
+  --bg-secondary: #222;
+  --bg-tertiary: #444;
+
+  --fg-primary: #fff;
+  --fg-secondary: #eee;
+  --fg-tertiary: #ddd;  
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  color: var(--fg-primary);
+  background-color: var(--bg-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+#__next, body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.button {
+  color: var(--bg-secondary);
+  background-color: var(--fg-secondary);
+  padding: 16px;
+  border-radius: 36px;
+  font-size: 24px;
+  margin: 8px;
+}
+
+#cy {
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+h1 {
+  margin: 12px;
+}
+
+p {
+  margin: 4px;
 }
