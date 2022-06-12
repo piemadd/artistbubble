@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Chart } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import React from "react";
+import { Treemap, Tooltip } from "recharts";
 
 export default function Callback() {
 
@@ -19,6 +18,9 @@ export default function Callback() {
 
   const [isLoading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState('');
+
+  const [finalChartData, setFinalChartData] = useState([]);
+  const [colors, setColors] = useState([]);
 
   useEffect(() => {
     //yes, this is a hack, but it works
@@ -135,11 +137,129 @@ export default function Callback() {
     console.log('max outer: ' + maxOuter);
     console.log('max inner: ' + maxInner);
 
+    let finalData = [];
+    Object.keys(sortedFilteredGenres).forEach((genre) => {
+      let tempGroup = {
+        'name': genre,
+        'children': []
+      };
+
+      sortedFilteredGenres[genre].forEach((artist) => {
+        tempGroup.children.push({
+          'name': artist,
+          'size': 100
+        })
+      });
+
+      finalData.push(tempGroup);
+    });
+
+    console.log(finalData)
+    setFinalChartData(finalData);
+
+    console.log('final chart data: ' + finalData.length);
+    let COLORS = [];
+    for (let i = 0; i <= finalData.length; i++) {
+      COLORS.push(hslToHex(i * (360 / finalData.length), 56, 70));
+    };
+    setColors(COLORS);
+
   }, [artistData]);
           
   return (
     <main>
-      test
+      <Treemap
+        width={1000}
+        height={1000}
+        data={finalChartData}
+        dataKey="size"
+        stroke="#fff"
+        fill="#8884d8"
+        content={<CustomizedContent colors={colors} />}
+      >
+        <Tooltip />
+      </Treemap>
     </main>
   )
 }
+
+function hslToHex(h, s, l) {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = n => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+const CustomizedContent = (props) => {
+  const { root, depth, x, y, width, height, index, colors, name, value } = props;
+  //console.log(props);
+
+  let colorIndex = index;
+
+  if (depth == 2) {
+    colorIndex = root.index;
+  }
+
+
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        style={{
+          fill:
+            depth < 2 && root.children
+              ? colors[colorIndex]
+              : "none",
+          stroke: "#fff",
+          strokeWidth: 2 / (depth + 1e-10),
+          strokeOpacity: 1 / (depth + 1e-10)
+        }}
+      />
+      {depth === 1 ? (
+        <text
+          x={x + width / 2}
+          y={y + height / 2 + 7}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize={36}
+        >
+          {name}
+        </text>
+      ) : null}
+      {(depth === 2 && root.children.length == 1)? (
+        <text
+          x={x + width / 2}
+          y={y + height / 2 + 30}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize={16}
+        >
+          {name}
+        </text>
+      ) : null}
+      {(depth === 2 && root.children.length != 1)? (
+        <text
+          x={x + width / 2}
+          y={y + height / 2 + 7}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize={16}
+        >
+          {name}
+        </text>
+      ) : null}
+      {depth === 1 ? (
+        <text x={x + 4} y={y + 18} fill="#fff" fontSize={16} fillOpacity={0.9}>
+          {index + 1}
+        </text>
+      ) : null}
+    </g>
+  );
+};
