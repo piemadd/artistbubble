@@ -78,6 +78,7 @@ export default function Callback() {
   }, [accessToken]);
 
   useEffect(() => {
+    //key is genre, value is list of artists
     let genresTemp = {};
     artistData.forEach(artist => {
       artist.genres.forEach(genre => {
@@ -86,6 +87,7 @@ export default function Callback() {
       })
     });
 
+    // list of genres by popularity in list
     const sortedGenres = Object.keys(genresTemp).sort((a, b) => {
       if (genresTemp[a].length > genresTemp[b].length) {
         return 1;
@@ -98,9 +100,7 @@ export default function Callback() {
 
     setSortedGenres(sortedGenres);
 
-
-    //note to future self: dont write code at 1am
-
+    // map of artist name to most popular genre
     let tempArtistGenreMap = {};
     sortedGenres.forEach((genre) => {
       genresTemp[genre].forEach((artist) => {
@@ -111,8 +111,7 @@ export default function Callback() {
     })
     setGenresMap(tempArtistGenreMap);
 
-
-
+    // same as genresTemp but with only the top 20 genres
     let sortedFilteredGenres = {};
     Object.keys(tempArtistGenreMap).forEach((artist) => {
       sortedFilteredGenres[tempArtistGenreMap[artist]] = sortedFilteredGenres[tempArtistGenreMap[artist]] ? sortedFilteredGenres[tempArtistGenreMap[artist]] : [];
@@ -128,6 +127,8 @@ export default function Callback() {
     Object.keys(sortedFilteredGenres).forEach((genre) => {
       setCorrectLabels(correctLabels => [...correctLabels, genre]);
     })
+
+    // originally was for pie chart stuff, might not be needed anymore
     setMaxOuter(Object.keys(genresMap).length);
     setMaxInner(Object.keys(sortedFilteredGenres).length);
 
@@ -136,123 +137,9 @@ export default function Callback() {
 
   }, [artistData]);
           
-
-  ChartJS.register(ArcElement, Tooltip, Legend);
-
-  const data = {
-    //labels: sortedGenres.slice(0, 20),
-    labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
-    datasets: [
-      {
-        label: 'Artists',
-        
-        data: Object.keys(genresMap).map((artist) => {
-          return 1;
-        }),
-        
-        //data: Object.values(genres),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-      {
-        label: 'Genres',
-        
-        data: Object.keys(sortedFilteredGenres).map((genre) => {
-          return sortedFilteredGenres[genre].length;
-        }),
-        
-        //data: Object.values(genres),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      }
-    ],
-  };
-
-
   return (
     <main>
-      <Pie data={data} options={{
-        plugins: {
-          legend: {
-            labels: {
-              generateLabels: function(chart) {
-                // Get the default label list
-                const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
-                const labelsOriginal = original.call(this, chart);
-
-                console.log('orig')
-                console.log(labelsOriginal)
-    
-                // Build an array of colors used in the datasets of the chart
-                let datasetColors = chart.data.datasets.map(function(e) {
-                  return e.backgroundColor;
-                });
-                datasetColors = datasetColors.flat();
-    
-                // Modify the color and hide state of each label
-                labelsOriginal.forEach(label => {
-                  // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
-                  label.datasetIndex = (label.index - label.index % 2) / 2;
-    
-                  // The hidden state must match the dataset's hidden state
-                  label.hidden = !chart.isDatasetVisible(label.datasetIndex);
-    
-                  // Change the color to match the dataset
-                  label.fillStyle = datasetColors[label.index];
-                });
-    
-                return labelsOriginal;
-              }
-            },
-            onClick: function(mouseEvent, legendItem, legend) {
-              // toggle the visibility of the dataset from what it currently is
-              legend.chart.getDatasetMeta(
-                legendItem.datasetIndex
-              ).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
-              legend.chart.update();
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-
-                const start = (context.dataset.label == 'Artists') ? 0 : maxOuter;
-                return correctLabels[start + context.dataIndex]
-              }
-            }
-          }
-        }
-      }}/>
+      test
     </main>
   )
 }

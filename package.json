@@ -10,11 +10,10 @@
   },
   "dependencies": {
     "@weknow/react-bubble-chart-d3": "^1.0.12",
-    "chart.js": "^3.8.0",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-chartjs-2": "^4.2.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "recharts": "^2.1.10"
   },
   "devDependencies": {
     "eslint": "8.17.0",
