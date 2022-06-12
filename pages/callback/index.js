@@ -48,7 +48,7 @@ export default function Callback() {
   useEffect(() => {
     if (accessToken != '') {
       console.log('fetching artists')
-      fetch('https://api.spotify.com/v1/me/top/artists?limit=20', {
+      fetch('https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term', {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -65,7 +65,7 @@ export default function Callback() {
   useEffect(() => {
     if (accessToken != '') {
       console.log('fetching tracks')
-      fetch('https://api.spotify.com/v1/me/top/tracks?limit=50', {
+      fetch('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term', {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
