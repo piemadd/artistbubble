@@ -167,10 +167,13 @@ export default function Callback() {
   }, [artistData]);
           
   return (
-    <main>
+    <main style={{justifyContent: 'center', alignItems: 'center'}}>
+      <center>
+
+      
       <Treemap
-        width={1000}
-        height={1000}
+        width={800}
+        height={800}
         data={finalChartData}
         dataKey="size"
         stroke="#fff"
@@ -179,6 +182,7 @@ export default function Callback() {
       >
         <Tooltip />
       </Treemap>
+      </center>
     </main>
   )
 }
@@ -198,10 +202,21 @@ const CustomizedContent = (props) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
   //console.log(props);
 
+  let nameArray = [name];
+
   let colorIndex = index;
 
   if (depth == 2) {
     colorIndex = root.index;
+  }
+
+  if (props.name == 'gaming edm') {
+    console.log(props)
+  }
+
+  if (depth == 1 && props.children.length == 1 && width < 150) {
+    nameArray = name.split(' ');
+    console.log(props)
   }
 
 
@@ -228,12 +243,11 @@ const CustomizedContent = (props) => {
           y={y + height / 2 + 7}
           textAnchor="middle"
           fill="#fff"
-          fontSize={36}
-        >
+          fontSize={width < 120 ? 16 : 32}>
           {name}
         </text>
       ) : null}
-      {(depth === 2 && root.children.length == 1)? (
+      {(depth === 2 && root.children.length == 1 || (root.width < root.height && root.children.length === 2))? (
         <text
           x={x + width / 2}
           y={y + height / 2 + 30}
@@ -244,7 +258,7 @@ const CustomizedContent = (props) => {
           {name}
         </text>
       ) : null}
-      {(depth === 2 && root.children.length != 1)? (
+      {(depth === 2 && root.children.length > 1 && !(root.width < root.height && root.children.length === 2))? (
         <text
           x={x + width / 2}
           y={y + height / 2 + 7}
