@@ -179,6 +179,7 @@ export default function Callback() {
         width={800}
         height={800}
         data={finalChartData}
+        isAnimationActive={false}
         dataKey="size"
         stroke="#fff"
         fill="#8884d8"
@@ -186,6 +187,7 @@ export default function Callback() {
       >
         <Tooltip />
       </Treemap>
+      <textarea value={JSON.stringify(artistData, null, 2)} rows={"10"} cols={"100"}></textarea>
       </center>
     </main>
   )
