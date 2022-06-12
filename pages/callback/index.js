@@ -168,6 +168,8 @@ export default function Callback() {
     };
     setColors(COLORS);
 
+    console.log(`number of artists fetched: ${artistData.length}`);
+
   }, [artistData]);
           
   return (
@@ -187,6 +189,7 @@ export default function Callback() {
       >
         <Tooltip />
       </Treemap>
+      <p>{`number of artists fetched: ${artistData.length}`}</p>
       <textarea value={JSON.stringify(artistData, null, 2)} rows={"10"} cols={"100"}></textarea>
       </center>
     </main>
