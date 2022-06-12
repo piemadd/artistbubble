@@ -59,6 +59,7 @@ export default function Callback() {
         .then(res => res.json())
         .then(data => {
           setArtistData(data.items);
+          console.log(data.items)
           window.artistData = data.items;
         })
         .catch(err => console.log(err));
@@ -175,8 +176,8 @@ export default function Callback() {
 
       
       <Treemap
-        width={600}
-        height={600}
+        width={800}
+        height={800}
         data={finalChartData}
         dataKey="size"
         stroke="#fff"
@@ -213,13 +214,9 @@ const CustomizedContent = (props) => {
     colorIndex = root.index;
   }
 
-  if (props.name == 'gaming edm') {
-    console.log(props)
-  }
-
   if (depth == 1 && props.children.length == 1 && width < 150) {
     nameArray = name.split(' ');
-    console.log(props)
+    //console.log(props)
   }
 
 
