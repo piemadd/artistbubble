@@ -17,7 +17,7 @@ export default function Home() {
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" /> 
       </Head>
 
-      <h1>SpotifyGrid</h1>
+      <h1>Grid</h1>
       <p>View your Grid Today!</p>
       <a className={"button scaleIn"} id="loginButton" href={`https://accounts.spotify.com/authorize?client_id=57e3f0d0690c485884d4088dd9fef246&redirect_uri=${baseURL}/callback&scope=playlist-read-collaborative%20user-library-read%20user-top-read&response_type=token&show_dialog=true`}>Login with Spotify</a>
       <br/>
