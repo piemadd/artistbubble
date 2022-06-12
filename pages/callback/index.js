@@ -21,6 +21,7 @@ export default function Callback() {
 
   const [finalChartData, setFinalChartData] = useState([]);
   const [colors, setColors] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     //yes, this is a hack, but it works
@@ -43,6 +44,8 @@ export default function Callback() {
         })
         .catch(err => console.log(err));
     }
+
+    setWindowWidth(window.innerWidth);
   }, [accessToken]);
 
   useEffect(() => {
@@ -172,8 +175,9 @@ export default function Callback() {
 
       
       <Treemap
-        width={800}
-        height={800}
+        width={600}
+        height={600}
+        transform={`scale(${((windowWidth / 400) * 1)})`}
         data={finalChartData}
         dataKey="size"
         stroke="#fff"

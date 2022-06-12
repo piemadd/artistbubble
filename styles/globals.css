@@ -74,8 +74,3 @@ main {
   width: 100%;
   height: auto;
 }
-
-svg {
-  max-width: 90vw;
-  height: auto;
-}
