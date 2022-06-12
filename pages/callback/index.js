@@ -177,7 +177,6 @@ export default function Callback() {
       <Treemap
         width={600}
         height={600}
-        transform={`scale(${((windowWidth / 400) * 1)})`}
         data={finalChartData}
         dataKey="size"
         stroke="#fff"
