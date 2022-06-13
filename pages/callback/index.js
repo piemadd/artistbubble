@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from "react";
-import { Treemap, Tooltip } from "recharts";
+//import { Treemap, Tooltip } from "recharts";
+import {Treemap} from 'react-vis';
 
 export default function Callback() {
 
@@ -142,31 +143,48 @@ export default function Callback() {
     console.log('max inner: ' + maxInner);
 
     let finalData = [];
-    Object.keys(sortedFilteredGenres).forEach((genre) => {
+    Object.keys(sortedFilteredGenres).forEach((genre, i, arr) => {
       let tempGroup = {
-        'name': genre,
-        'children': []
+        'title': genre,
+        'opacity': 1,
+        'children': [],
+        'style': {
+          'textAlign': 'left',
+          'backgroundColor': 'hsl(0, 0, 0, 0)',
+        }
       };
 
       sortedFilteredGenres[genre].forEach((artist) => {
         tempGroup.children.push({
-          'name': artist,
-          'size': 100
+          'title': artist,
+          'color': `hsl(${i * (360 / arr.length)}, 50, 60, 1)`,
+          'size': 100,
+          'opacity': 1,
+          'style': {
+            'display': 'flex',
+            'justifyContent': 'center',
+            'alignItems': 'center',
+            'borderWidth': '1px',
+            'borderStyle': 'solid',
+          }
         })
       });
 
       finalData.push(tempGroup);
     });
 
-    console.log(finalData)
-    setFinalChartData(finalData);
+    let finalDataUber = {
+      'children': finalData
+    }
+
+    finalData.forEach((genre, i) => {
+      genre.color = COLORS[i];
+    })
+
+    console.log(finalDataUber)
+    setFinalChartData(finalDataUber);
 
     console.log('final chart data: ' + finalData.length);
-    let COLORS = [];
-    for (let i = 0; i <= finalData.length; i++) {
-      COLORS.push(hslToHex(i * (360 / finalData.length), 56, 70));
-    };
-    setColors(COLORS);
 
     console.log(`number of artists fetched: ${artistData.length}`);
 
@@ -177,24 +195,28 @@ export default function Callback() {
       <center>
 
       
-      <Treemap
+      <Treemap 
+        data={finalChartData}
         width={800}
         height={800}
-        data={finalChartData}
-        isAnimationActive={false}
-        dataKey="size"
-        stroke="#fff"
-        fill="#8884d8"
-        content={<CustomizedContent colors={colors} />}
+        renderMode={'DOM'}
+        colorType={'literal'}
+        colorRange={['#222']}
+        mode={'binary'}
       >
-        <Tooltip />
+
       </Treemap>
+      </center>
       <p>{`number of artists fetched: ${artistData.length}`}</p>
       <textarea value={JSON.stringify(artistData, null, 2)} rows={"10"} cols={"100"}></textarea>
-      </center>
     </main>
   )
 }
+
+/*
+<Tooltip />
+      content={<CustomizedContent colors={colors} />}
+*/
 
 function hslToHex(h, s, l) {
   l /= 100;
@@ -206,79 +228,3 @@ function hslToHex(h, s, l) {
   };
   return `#${f(0)}${f(8)}${f(4)}`;
 }
-
-const CustomizedContent = (props) => {
-  const { root, depth, x, y, width, height, index, colors, name, value } = props;
-  //console.log(props);
-
-  let nameArray = [name];
-
-  let colorIndex = index;
-
-  if (depth == 2) {
-    colorIndex = root.index;
-  }
-
-  if (depth == 1 && props.children.length == 1 && width < 150) {
-    nameArray = name.split(' ');
-    //console.log(props)
-  }
-
-
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        style={{
-          fill:
-            depth < 2 && root.children
-              ? colors[colorIndex]
-              : "none",
-          stroke: "#fff",
-          strokeWidth: 2 / (depth + 1e-10),
-          strokeOpacity: 1 / (depth + 1e-10)
-        }}
-      />
-      {depth === 1 ? (
-        <text
-          x={x + width / 2}
-          y={y + height / 2 + 7}
-          textAnchor="middle"
-          fill="#fff"
-          fontSize={width < 120 ? 16 : 32}>
-          {name}
-        </text>
-      ) : null}
-      {(depth === 2 && root.children.length == 1 || (root.width < root.height && root.children.length === 2))? (
-        <text
-          x={x + width / 2}
-          y={y + height / 2 + 30}
-          textAnchor="middle"
-          fill="#fff"
-          fontSize={16}
-        >
-          {name}
-        </text>
-      ) : null}
-      {(depth === 2 && root.children.length > 1 && !(root.width < root.height && root.children.length === 2))? (
-        <text
-          x={x + width / 2}
-          y={y + height / 2 + 7}
-          textAnchor="middle"
-          fill="#fff"
-          fontSize={16}
-        >
-          {name}
-        </text>
-      ) : null}
-      {depth === 1 ? (
-        <text x={x + 4} y={y + 18} fill="#fff" fontSize={16} fillOpacity={0.9}>
-          {index + 1}
-        </text>
-      ) : null}
-    </g>
-  );
-};

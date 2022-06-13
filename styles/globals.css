@@ -1,3 +1,5 @@
+@import "~react-vis/dist/style";
+
 html,
 body {
   padding: 0;
@@ -35,7 +37,7 @@ html, body {
 }
 
 #__next, body {
-  display: flex;
+  /*display: flex; */
   align-items: center;
   justify-content: center;
   flex-direction: column;
