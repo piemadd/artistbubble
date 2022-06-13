@@ -70,6 +70,7 @@ export default function Callback() {
       })
         .then(res => res.json())
         .then(data => {
+          console.log(data.items)
           setSongData(data.items);
           window.songData = data.items;
         })
