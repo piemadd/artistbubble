@@ -9,11 +9,7 @@ export default function Callback() {
   const [songData, setSongData] = useState([])
   const [userData, setUserData] = useState({});
 
-  const [genres, setGenres] = useState([]);
-  const [sortedGenres, setSortedGenres] = useState([]);
-  const [sortedFilteredGenres, setSortedFilteredGenres] = useState({});
   const [genresMap, setGenresMap]  = useState({});
-  const [correctLabels, setCorrectLabels] = useState([]);
   const [maxInner, setMaxInner] = useState(0);
   const [maxOuter, setMaxOuter] = useState(0);
 
@@ -21,8 +17,6 @@ export default function Callback() {
   const [accessToken, setAccessToken] = useState('');
 
   const [finalChartData, setFinalChartData] = useState([]);
-  const [colors, setColors] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     //yes, this is a hack, but it works
@@ -46,7 +40,6 @@ export default function Callback() {
         .catch(err => console.log(err));
     }
 
-    setWindowWidth(window.innerWidth);
   }, [accessToken]);
 
   useEffect(() => {
@@ -105,8 +98,6 @@ export default function Callback() {
       return -1;
     }).reverse();
 
-    setSortedGenres(sortedGenres);
-
     // map of artist name to most popular genre
     let tempArtistGenreMap = {};
     sortedGenres.forEach((genre) => {
@@ -126,14 +117,6 @@ export default function Callback() {
     });
 
     console.log(sortedFilteredGenres)
-    setSortedFilteredGenres(sortedFilteredGenres)
-    setGenres(genresTemp);
-
-    setCorrectLabels(Object.keys(genresMap));
-
-    Object.keys(sortedFilteredGenres).forEach((genre) => {
-      setCorrectLabels(correctLabels => [...correctLabels, genre]);
-    })
 
     // originally was for pie chart stuff, might not be needed anymore
     setMaxOuter(Object.keys(genresMap).length);
@@ -142,15 +125,18 @@ export default function Callback() {
     console.log('max outer: ' + maxOuter);
     console.log('max inner: ' + maxInner);
 
-    let finalData = [];
+    let finalData = {
+      'children': []
+    };
     Object.keys(sortedFilteredGenres).forEach((genre, i, arr) => {
       let tempGroup = {
         'title': genre,
+        'color': hslToHex(i * (360 / arr.length), 56, 70),
         'opacity': 1,
         'children': [],
         'style': {
           'textAlign': 'left',
-          'backgroundColor': 'hsl(0, 0, 0, 0)',
+          
         }
       };
 
@@ -170,21 +156,13 @@ export default function Callback() {
         })
       });
 
-      finalData.push(tempGroup);
+      finalData.children.push(tempGroup);
     });
 
-    let finalDataUber = {
-      'children': finalData
-    }
+    console.log(finalData)
+    setFinalChartData(finalData);
 
-    finalData.forEach((genre, i) => {
-      genre.color = COLORS[i];
-    })
-
-    console.log(finalDataUber)
-    setFinalChartData(finalDataUber);
-
-    console.log('final chart data: ' + finalData.length);
+    console.log('final chart data: ' + finalData.children.length);
 
     console.log(`number of artists fetched: ${artistData.length}`);
 
@@ -212,11 +190,6 @@ export default function Callback() {
     </main>
   )
 }
-
-/*
-<Tooltip />
-      content={<CustomizedContent colors={colors} />}
-*/
 
 function hslToHex(h, s, l) {
   l /= 100;
