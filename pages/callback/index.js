@@ -45,7 +45,7 @@ export default function Callback() {
   useEffect(() => {
     if (accessToken != '') {
       console.log('fetching artists')
-      fetch('https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term', {
+      fetch('https://api.spotify.com/v1/me/top/artists', {//?limit=20&time_range=short_term', {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
