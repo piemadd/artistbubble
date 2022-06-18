@@ -82,11 +82,17 @@ export default function Callback() {
     //key is genre, value is list of artists
     let genresTemp = {};
     artistData.forEach(artist => {
+
+      if (artist.genres.length == 0) {
+        artist.genres = ['none?'];
+      }
+
       artist.genres.forEach(genre => {
         genresTemp[genre] = genresTemp[genre] ? genresTemp[genre]: [];
         genresTemp[genre].push(artist.name);
       })
     });
+    console.log('genresTemp', genresTemp)
 
     // list of genres by popularity in list
     const sortedGenres = Object.keys(genresTemp).sort((a, b) => {
@@ -108,6 +114,7 @@ export default function Callback() {
         }
       })
     })
+    console.log('tempArtistGenreMap:', tempArtistGenreMap);
     setGenresMap(tempArtistGenreMap);
 
     // same as genresTemp but with only the top 20 genres
@@ -147,6 +154,7 @@ export default function Callback() {
           'color': `hsl(${i * (360 / arr.length)}, 50, 60, 1)`,
           'size': 100,
           'opacity': 1,
+          'children': [],
           'style': {
             'display': 'flex',
             'justifyContent': 'center',
@@ -155,6 +163,21 @@ export default function Callback() {
             'borderStyle': 'solid',
           }
         })
+
+        //revisit at a later date?
+        /*
+        songData.forEach((song) => {
+          song.artists.forEach((songArtist) => {
+            if (songArtist.name == artist) {
+              tempGroup.children[tempGroup.children.length - 1].children.push({
+                'title': song.name,
+                'opacity': 0.5
+              })
+            }
+          })
+        })
+        */
+
       });
 
       finalData.children.push(tempGroup);
@@ -167,7 +190,7 @@ export default function Callback() {
 
     console.log(`number of artists fetched: ${artistData.length}`);
 
-  }, [artistData]);
+  }, [artistData, songData]);
           
   return (
     <main style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -178,6 +201,7 @@ export default function Callback() {
         data={finalChartData}
         width={800}
         height={800}
+        animation
         renderMode={'DOM'}
         colorType={'literal'}
         colorRange={['#222']}
