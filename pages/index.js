@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 const isDev = process.env.NODE_ENV === 'development';
-const baseURL = isDev ? 'http://localhost:3000' : 'https://spotifygrid.vercel.app';
+const baseURL = isDev ? 'http://localhost:3000' : 'https://artistgrid.vercel.app';
 
 export default function Home() {
   return (
@@ -42,7 +42,7 @@ export default function Home() {
   </head>
 
   <body>
-    <h1>spotifygrid</h1>
+    <h1>artistgrid</h1>
     <p>View your Bubble Today!</p>
     <a class="button scaleIn" id="loginButton">Login with Spotify</a>
     <br>
