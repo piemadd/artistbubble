@@ -246,8 +246,8 @@ export default function Callback() {
         style={{
           width: "80vw",
           height: "80vw",
-          maxWidth: "750px",
-          maxHeight: "750px",
+          maxWidth: "700px",
+          maxHeight: "700px",
         }}
       >
           <h1>ArtistGrid.piemadd.com</h1>
@@ -272,8 +272,8 @@ export default function Callback() {
               onClick={() => {
                 domtoimage
                   .toBlob(document.querySelector(".treemap"), {
-                    height: 750,
-                    width: 750,
+                    height: 700,
+                    width: 700,
                   })
                   .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
               }}
@@ -284,8 +284,8 @@ export default function Callback() {
         <Treemap
           ref={container}
           data={finalChartData}
-          width={800}
-          height={800}
+          width={750}
+          height={750}
           renderMode={"DOM"}
           colorType={"literal"}
           colorRange={["#222"]}
