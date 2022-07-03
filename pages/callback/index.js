@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import domtoimage from "@intactile/dom-to-image-next";
 import { saveAs } from "file-saver";
+import Head from "next/head";
 //import { Treemap, Tooltip } from "recharts";
 import { Treemap } from "react-vis";
 
