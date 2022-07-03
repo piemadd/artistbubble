@@ -36,7 +36,10 @@ grid grid grid grid
 grid grid grid grid
 grid grid grid grid"
         />
-        <meta property="og:image" content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png" />
+        <meta
+          property="og:image"
+          content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png"
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="artistgrid.piemadd.com" />
@@ -54,13 +57,31 @@ grid grid grid grid
 grid grid grid grid
 grid grid grid grid"
         />
-        <meta name="twitter:image" content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png" />
+        <meta
+          name="twitter:image"
+          content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png"
+        />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
           rel="stylesheet"
+        />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-MNMHEG8TM0"
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-MNMHEG8TM0', { page_path: window.location.pathname });
+            `,
+          }}
         />
       </Head>
 

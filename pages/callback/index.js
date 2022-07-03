@@ -242,6 +242,23 @@ export default function Callback() {
 
   return (
     <>
+      <Head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-MNMHEG8TM0"
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-MNMHEG8TM0', { page_path: window.location.pathname });
+            `,
+          }}
+        />
+      </Head>
       <main
         style={{
           width: "80vw",
@@ -250,37 +267,40 @@ export default function Callback() {
           maxHeight: "700px",
         }}
       >
-          <h1>ArtistGrid.piemadd.com</h1>
-          <a href="https://piemadd.com" style={{
-            marginLeft: '12px',
-            fontSize: '26px'
-          }}>
-            Made by @piemadd.
+        <h1>ArtistGrid.piemadd.com</h1>
+        <a
+          href="https://piemadd.com"
+          style={{
+            marginLeft: "12px",
+            fontSize: "26px",
+          }}
+        >
+          Made by @piemadd.
+        </a>
+        <section
+          style={{
+            display: "flex",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <a href={"/"} className={"button scaleIn"}>
+            Disconnect Account
           </a>
-          <section
-            style={{
-              display: "flex",
-              marginTop: "20px",
-              marginBottom: "20px",
+          <a
+            className={"button scaleIn"}
+            onClick={() => {
+              domtoimage
+                .toBlob(document.querySelector(".treemap"), {
+                  height: 700,
+                  width: 700,
+                })
+                .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
             }}
           >
-            <a href={"/"} className={"button scaleIn"}>
-              Disconnect Account
-            </a>
-            <a
-              className={"button scaleIn"}
-              onClick={() => {
-                domtoimage
-                  .toBlob(document.querySelector(".treemap"), {
-                    height: 700,
-                    width: 700,
-                  })
-                  .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
-              }}
-            >
-              Save Image
-            </a>
-          </section>
+            Save Image
+          </a>
+        </section>
         <Treemap
           ref={container}
           data={finalChartData}
