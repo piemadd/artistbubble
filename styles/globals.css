@@ -1,15 +1,28 @@
 @import "~react-vis/dist/style";
 
-html,
 body {
-  padding: 0;
+  background-color: #222;
+  color: #ddd;
+  font-family: "Azeret Mono", monospace;
+}
+
+#__next {
+  justify-content: center;
+  align-items: center;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 2vw;
+  width: 96vw;
+  text-align: center;
+}
+
+div.rv-treemap {
+  padding-left: 0px;
+  padding-top: 0px;
 }
 
 a {
   color: inherit;
+  cursor: pointer;
 }
 
 * {
@@ -22,10 +35,11 @@ a {
 
   --fg-primary: #fff;
   --fg-secondary: #eee;
-  --fg-tertiary: #ddd;  
+  --fg-tertiary: #ddd;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   padding: 0px;
@@ -33,10 +47,11 @@ html, body {
   text-align: center;
   color: var(--fg-primary);
   background-color: var(--bg-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-#__next, body {
+#__next,
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +64,15 @@ html, body {
 }
 
 .button {
+  color: var(--bg-secondary);
+  background-color: var(--fg-secondary);
+  padding: 16px;
+  border-radius: 36px;
+  font-size: 24px;
+  margin: 8px;
+}
+
+.exportButton {
   color: var(--bg-secondary);
   background-color: var(--fg-secondary);
   padding: 16px;
