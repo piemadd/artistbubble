@@ -36,7 +36,7 @@ grid grid grid grid
 grid grid grid grid
 grid grid grid grid"
         />
-        <meta property="og:image" content="artistgrid.piemadd.com.png" />
+        <meta property="og:image" content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="artistgrid.piemadd.com" />
@@ -54,7 +54,7 @@ grid grid grid grid
 grid grid grid grid
 grid grid grid grid"
         />
-        <meta name="twitter:image" content="artistgrid.piemadd.com.png" />
+        <meta name="twitter:image" content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
