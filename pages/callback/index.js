@@ -266,7 +266,7 @@ export default function Callback() {
             className={"button scaleIn"}
             onClick={() => {
               domtoimage
-                .toBlob(document.querySelector(".treemap"))
+                .toBlob(document.querySelector(".treemap"), { height: 750, width: 750 })
                 .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
             }}
           >
