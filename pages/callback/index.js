@@ -272,7 +272,7 @@ export default function Callback() {
       </a>
       <a className={"button scaleIn"} onClick={() => {
         domtoimage.toBlob(document.querySelector('.treemap'))
-        .then((blob) => saveAs(blob, 'artistbubble.piemadd.com.png'));
+        .then((blob) => saveAs(blob, 'artistgrid.piemadd.com.png'));
       }}>Save Image</a>
     </>
   );
