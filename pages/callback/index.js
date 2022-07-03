@@ -242,7 +242,6 @@ export default function Callback() {
 
   return (
     <>
-
       <main
         style={{
           width: "80vw",
@@ -251,30 +250,37 @@ export default function Callback() {
           maxHeight: "750px",
         }}
       >
-        <center>
-        <section
-          style={{
-            display: "flex",
-            marginTop: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          <a href={"/"} className={"button scaleIn"}>
-            Disconnect Account
+          <h1>ArtistGrid.piemadd.com</h1>
+          <a href="https://piemadd.com" style={{
+            marginLeft: '12px',
+            fontSize: '26px'
+          }}>
+            Made by @piemadd.
           </a>
-          <a
-            className={"button scaleIn"}
-            onClick={() => {
-              domtoimage
-                .toBlob(document.querySelector(".treemap"), { height: 750, width: 750 })
-                .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
+          <section
+            style={{
+              display: "flex",
+              marginTop: "20px",
+              marginBottom: "20px",
             }}
           >
-            Save Image
-          </a>
-        </section>
-        </center>
-        
+            <a href={"/"} className={"button scaleIn"}>
+              Disconnect Account
+            </a>
+            <a
+              className={"button scaleIn"}
+              onClick={() => {
+                domtoimage
+                  .toBlob(document.querySelector(".treemap"), {
+                    height: 750,
+                    width: 750,
+                  })
+                  .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
+              }}
+            >
+              Save Image
+            </a>
+          </section>
         <Treemap
           ref={container}
           data={finalChartData}

@@ -12,7 +12,6 @@ body {
   margin: 0;
   padding: 2vw;
   width: 96vw;
-  text-align: center;
 }
 
 .rv-treemap__leaf {
@@ -28,6 +27,7 @@ a {
   color: inherit;
   cursor: pointer;
   text-decoration: underline;
+  text-align: center;
 }
 
 * {
@@ -49,7 +49,6 @@ body {
   width: 100%;
   padding: 0px;
   margin: 0px;
-  text-align: center;
   color: var(--fg-primary);
   background-color: var(--bg-primary);
   font-family: "Inter", sans-serif;
@@ -70,6 +69,7 @@ body {
   border-radius: 36px;
   font-size: 24px;
   margin: 8px;
+  word-wrap: break-word;
 }
 
 .exportButton {

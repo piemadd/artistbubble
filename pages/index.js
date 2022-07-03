@@ -75,8 +75,7 @@ grid grid grid grid"
       </a>
       <br />
       <p>
-        Made by <a href="https://piemadd.com">Piero</a>. pls hire me lol (dev
-        and comm manager)
+        Made by <a href="https://piemadd.com">Piero</a>. (pls hire me lol)
       </p>
     </>
   );
