@@ -4,7 +4,7 @@ import Image from "next/image";
 const isDev = process.env.NODE_ENV === "development";
 const baseURL = isDev
   ? "http://192.168.4.21:3000"
-  : "https://artistgrid.vercel.app";
+  : "https://artistgrid.piemadd.com";
 
 export default function Home() {
   return (
