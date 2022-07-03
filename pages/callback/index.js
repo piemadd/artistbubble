@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import domtoimage from '@intactile/dom-to-image-next';
-import { saveAs } from 'file-saver';
+import domtoimage from "@intactile/dom-to-image-next";
+import { saveAs } from "file-saver";
 //import { Treemap, Tooltip } from "recharts";
 import { Treemap } from "react-vis";
 
-const exportToPng = ((dom) => {
+const exportToPng = (dom) => {
   domtoimage
     .toPng(dom)
     .then(function (dataUrl) {
@@ -16,7 +16,7 @@ const exportToPng = ((dom) => {
     .catch(function (error) {
       console.error("oops, something went wrong!", error);
     });
-});
+};
 
 export default function Callback() {
   const container = useRef(null);
@@ -242,38 +242,51 @@ export default function Callback() {
 
   return (
     <>
-      <div
+
+      <main
         style={{
-          width: "750px",
-          height: "750px",
+          width: "80vw",
+          height: "80vw",
+          maxWidth: "750px",
+          maxHeight: "750px",
         }}
       >
+        <center>
+        <section
+          style={{
+            display: "flex",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <a href={"/"} className={"button scaleIn"}>
+            Disconnect Account
+          </a>
+          <a
+            className={"button scaleIn"}
+            onClick={() => {
+              domtoimage
+                .toBlob(document.querySelector(".treemap"))
+                .then((blob) => saveAs(blob, "artistgrid.piemadd.com.png"));
+            }}
+          >
+            Save Image
+          </a>
+        </section>
+        </center>
+        
         <Treemap
-        ref={container}
+          ref={container}
           data={finalChartData}
           width={800}
           height={800}
-          animation
           renderMode={"DOM"}
           colorType={"literal"}
           colorRange={["#222"]}
           mode={"binary"}
           className={"treemap"}
         ></Treemap>
-      </div>
-      <a
-        href={"/"}
-        style={{
-          marginTop: "50px",
-          marginBottom: "20px",
-        }}
-      >
-        Disconnect Account
-      </a>
-      <a className={"button scaleIn"} onClick={() => {
-        domtoimage.toBlob(document.querySelector('.treemap'))
-        .then((blob) => saveAs(blob, 'artistgrid.piemadd.com.png'));
-      }}>Save Image</a>
+      </main>
     </>
   );
 }

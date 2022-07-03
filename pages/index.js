@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 const isDev = process.env.NODE_ENV === 'development';
-const baseURL = isDev ? 'http://localhost:3000' : 'https://artistgrid.vercel.app';
+const baseURL = isDev ? 'http://192.168.4.21:3000' : 'https://artistgrid.vercel.app';
 
 export default function Home() {
   return (
