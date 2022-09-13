@@ -183,7 +183,30 @@ export default function Callback() {
 
       sortedFilteredGenres[genre].forEach((artist) => {
         tempGroup.children.push({
-          title: <a href={artistLink[artist]}>{artist}</a>,
+          title: (
+            <a href={artistLink[artist]}>
+              {artist}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+                <img
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                  }}
+                  src="./spotifylogo.svg"
+                ></img>
+                <p
+                  style={{
+                    fontSize: "10px",
+                  }}
+                >
+                  View on Spotify
+                </p>
+              </div>
+            </a>
+          ),
           color: `hsl(${i * (360 / arr.length)}, 50, 60, 1)`,
           size: 100,
           opacity: 1,

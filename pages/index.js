@@ -2,14 +2,14 @@ import Head from "next/head";
 
 const isDev = process.env.NODE_ENV === "development";
 const baseURL = isDev
-  ? "http://192.168.4.21:3000"
+  ? "http://10.0.0.161:3000"
   : "https://artistgrid.piemadd.com";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width" />
 
         <title>Artist Grid</title>
@@ -59,14 +59,7 @@ grid grid grid grid"
         <meta
           name="twitter:image"
           content="https://artistgrid.piemadd.com/artistgrid.piemadd.com.png"
-        />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
+        />  
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-MNMHEG8TM0"
